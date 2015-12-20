@@ -2,6 +2,7 @@ package mum.dancemotion;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -67,5 +68,12 @@ public class DatenbankOperations extends SQLiteOpenHelper {
         Log.d("DatenbankOperations", "Song-Tabelle mit Daten gefüllt");
         //DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         //String date = df.format(datum);
+    }
+
+    public Cursor getInformationFromSong(DatenbankOperations op){
+        SQLiteDatabase sQ = op.getReadableDatabase();
+        String[] spalten = {DatenbankInfo.SONG_NAME, DatenbankInfo.SONG_DAUER};
+        Cursor cr = sQ.query(DatenbankInfo.TABLE_SONG, spalten,null, null, null, null, null);
+        return cr;
     }
 }

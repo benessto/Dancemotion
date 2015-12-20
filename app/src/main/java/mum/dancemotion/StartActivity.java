@@ -27,7 +27,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 status = 5;
-                Bundle bundle = new Bundle();
+                Bundle bundle = getIntent().getExtras();
                 bundle.putInt("DBTest",status);
                 Intent i = new Intent(StartActivity.this, DatenbankTestActivity.class);
                 i.putExtras(bundle);
