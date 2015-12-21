@@ -72,6 +72,7 @@ public class DatenbankOperations extends SQLiteOpenHelper {
 
     public Cursor getInformationFromSong(DatenbankOperations op){
         SQLiteDatabase sQ = op.getReadableDatabase();
+        
         String[] spalten = {DatenbankInfo.SONG_NAME, DatenbankInfo.SONG_DAUER};
         Cursor cr = sQ.query(DatenbankInfo.TABLE_SONG, spalten,null, null, null, null, null);
         return cr;
