@@ -34,7 +34,7 @@ public class DatenbankOperations extends SQLiteOpenHelper {
             " )";
 
     public String CREATE_TABLE_SESSION_SONG = "CREATE TABLE "+ DatenbankInfo.TABLE_SESSION_SONG + " (" +
-            DatenbankInfo.SON_ID + " INTEGER PRIMARY KEY," +
+            DatenbankInfo.SON_ID + TEXT_TYPE + COMMA_SEP +
             DatenbankInfo.SES_ID + TEXT_TYPE + COMMA_SEP +
             DatenbankInfo.SONG_INTENSITÄT + INT_TYPE +
             " )";
