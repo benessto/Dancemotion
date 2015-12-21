@@ -16,25 +16,27 @@ public class DatenbankOperations extends SQLiteOpenHelper {
 
     public static final int datenbank_version = 1;
     private static final String TEXT_TYPE = " TEXT";
+    private static final String DATE_TYPE = " DATE";
+    private static final String TIME_TYPE = " TIME";
+    private static final String INT_TYPE = " INT";
     private static final String COMMA_SEP = ",";
     public String CREATE_TABLE_SESSION = "CREATE TABLE "+ DatenbankDaten.DatenbankInfo.TABLE_SESSION + " (" +
             DatenbankInfo.SESSION_ID + " INTEGER PRIMARY KEY," +
             DatenbankDaten.DatenbankInfo.SESSION_DATUM + TEXT_TYPE + COMMA_SEP +
-            DatenbankInfo.SESSION_DAUER + TEXT_TYPE +
+            DatenbankInfo.SESSION_DAUER + TIME_TYPE +
             " )";
 
     public String CREATE_TABLE_SONG = "CREATE TABLE "+ DatenbankInfo.TABLE_SONG + " (" +
             DatenbankInfo.SONG_ID + " INTEGER PRIMARY KEY," +
-            DatenbankInfo.SONG_DAUER + TEXT_TYPE + COMMA_SEP +
+            DatenbankInfo.SONG_DAUER + TIME_TYPE + COMMA_SEP +
             DatenbankInfo.SONG_INTERPRET + TEXT_TYPE + COMMA_SEP +
             DatenbankInfo.SONG_NAME + TEXT_TYPE + COMMA_SEP +
-            DatenbankInfo.SONG_INTENSITÄT + TEXT_TYPE +
             " )";
 
     public String CREATE_TABLE_SESSION_SONG = "CREATE TABLE "+ DatenbankInfo.TABLE_SESSION_SONG + " (" +
             DatenbankInfo.SON_ID + " INTEGER PRIMARY KEY," +
             DatenbankInfo.SES_ID + TEXT_TYPE + COMMA_SEP +
-            DatenbankInfo.SONG_INTENSITÄT + TEXT_TYPE +
+            DatenbankInfo.SONG_INTENSITÄT + INT_TYPE +
             " )";
 
     public DatenbankOperations(Context context){
