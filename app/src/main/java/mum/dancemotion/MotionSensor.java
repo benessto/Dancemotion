@@ -143,6 +143,58 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
     }
 
     /**
+     * this methods maps the avg values to a rating-scale from 0-10
+     * @param avg
+     * @return
+     */
+    public int getRating(float avg){
+
+        if(avg>17){
+            return 10;
+        }
+        switch((int)avg){
+
+
+            case 0: return 0;
+
+            case 1: return 1;
+
+            case 2: return 2;
+
+            case 3: return 3;
+
+            case 4: return 3;
+
+            case 5: return 3;
+
+            case 6: return 4;
+
+            case 7: return 5;
+
+            case 8: return 5;
+
+            case 9: return 6;
+
+            case 10: return 6;
+
+            case 11: return 7;
+
+            case 12: return 7;
+
+            case 13: return 8;
+
+            case 14: return 8;
+
+            case 15: return 9;
+
+            case 16: return 9;
+
+
+        }
+        return 0;
+    }
+
+    /**
      * Reset all variables to default state and clear the buffers.
      */
     public void reset(){
@@ -185,8 +237,8 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
                 float avgX = calcAverage(bufferX);
                 float avgY = calcAverage(bufferY);
                 float avgZ = calcAverage(bufferZ);
-                float avg = 0;//(avgX+avgY+avgZ)/3;
-                if (avgX < avgY) {
+                float avg = (avgX+avgY+avgZ);
+                /**if (avgX < avgY) {
                     if (avgY < avgZ) {
                         avg = avgZ;
                     } else {
@@ -196,7 +248,7 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
                     avg = avgZ;
                 } else {
                     avg = avgX;
-                }
+                }**/
                 writeToSongBuffer(new MoveIntensity(avg));
             } else {
                 test = 0;
@@ -212,20 +264,29 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
 
 
             accelaration.setText("X: " + event.values[0] +
-                    "\nY: " + Math.abs(event.values[1]) +
-                    "\nZ: " + Math.abs(event.values[2]) +
-                    "\nAverage: "+ calcSongAverage() +
-                    /**"\nMaxX: " + maxX +
-                    "\nMaxY: " + maxY +
-                    "\nMaxZ: " + maxZ +
-                    "\nAvgX: " + avgX +
-                    "\nAvgY: " + avgY +
-                    "\nAvgZ: " + avgZ + **/
-                    "\nStart: " + (System.currentTimeMillis()-currentTime)/1000 + " seconds" +
-                    "\nCount: " + count +
-                    "\nsongBufferSize(): " +songBuffer.size() +
-                    "\ntest: " +test
-                    );
+                            "\nY: " + Math.abs(event.values[1]) +
+                            "\nZ: " + Math.abs(event.values[2]) +
+                            "\nAverage: " + calcSongAverage() +
+                            "\nRating: " + getRating(calcSongAverage()) +
+                            /**"\nMaxX: " + maxX +
+                             "\nMaxY: " + maxY +
+                             "\nMaxZ: " + maxZ +
+                             "\nAvgX: " + avgX +
+                             "\nAvgY: " + avgY +
+                             "\nAvgZ: " + avgZ + **/
+                            "\nStart: " + (System.currentTimeMillis() - currentTime) / 1000 + " seconds" +
+                            "\nCount: " + count +
+                            "\nsongBufferSize(): " + songBuffer.size() +
+                            "\ntest: " + test
+            );
+
+
+
+            System.out.println("\nStart: " + (System.currentTimeMillis() - currentTime) / 1000 + " seconds" +
+                    "\nAverage: "+ calcSongAverage());
+
+
+
 
         }
     }
