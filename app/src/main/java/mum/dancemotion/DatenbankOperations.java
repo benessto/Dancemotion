@@ -22,7 +22,7 @@ public class DatenbankOperations extends SQLiteOpenHelper {
     private static final String COMMA_SEP = ",";
     public String CREATE_TABLE_SESSION = "CREATE TABLE "+ DatenbankDaten.DatenbankInfo.TABLE_SESSION + " (" +
             DatenbankInfo.SESSION_ID + " INTEGER PRIMARY KEY," +
-            DatenbankDaten.DatenbankInfo.SESSION_DATUM + TEXT_TYPE + COMMA_SEP +
+            DatenbankDaten.DatenbankInfo.SESSION_DATUM + DATE_TYPE + COMMA_SEP +
             DatenbankInfo.SESSION_DAUER + TIME_TYPE +
             " )";
 
@@ -30,7 +30,7 @@ public class DatenbankOperations extends SQLiteOpenHelper {
             DatenbankInfo.SONG_ID + " INTEGER PRIMARY KEY," +
             DatenbankInfo.SONG_DAUER + TIME_TYPE + COMMA_SEP +
             DatenbankInfo.SONG_INTERPRET + TEXT_TYPE + COMMA_SEP +
-            DatenbankInfo.SONG_NAME + TEXT_TYPE + COMMA_SEP +
+            DatenbankInfo.SONG_NAME + TEXT_TYPE +
             " )";
 
     public String CREATE_TABLE_SESSION_SONG = "CREATE TABLE "+ DatenbankInfo.TABLE_SESSION_SONG + " (" +

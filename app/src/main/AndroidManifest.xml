@@ -11,12 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".StartActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-            </intent-filter>
-        </activity>
-        <activity android:name=".DatenbankTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
@@ -24,10 +19,11 @@
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.CATEGORY.LAUNCHER"></action>
+                <action android:name="android.intent.action.CATEGORY.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StatistikActivity"></activity>
+        <activity android:name=".StatistikActivity" />
+        <activity android:name=".DatenbankTestActivity"></activity>
     </application>
 
 </manifest>

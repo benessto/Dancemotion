@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class DatenbankTestActivity extends AppCompatActivity {
+
     EditText SONG_NAME, SONG_DAUER;
     String song_name, song_dauer;
     Button SPButton;
@@ -20,8 +21,8 @@ public class DatenbankTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datenbank_test);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         SONG_NAME = (EditText) findViewById(R.id.SongNameText);
         SONG_DAUER = (EditText) findViewById(R.id.SongDauerText);
