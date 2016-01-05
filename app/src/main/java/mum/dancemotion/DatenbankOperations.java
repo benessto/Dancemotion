@@ -60,6 +60,20 @@ public class DatenbankOperations extends SQLiteOpenHelper {
         putInformationsIntoSessionSong();
     }
 
+
+    public void putInformationsIntoSessionSong(DatenbankOperations op, String songIntensität){
+        SQLiteDatabase sQ = op.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        //SessionSong1
+        cv.put(DatenbankInfo.SES_ID,) 1);
+        cv.put(DatenbankInfo.SON_ID, 2;
+        cv.put(DatenbankInfo.SONG_INTENSITÄT, songIntensität);
+
+        long k = sQ.insert(DatenbankInfo.TABLE_SESSION_SONG, null, cv);
+        Log.d("DatenbankOperations", "SessionSong-Tabelle mit Daten gefüllt");
+    }
+
     private void putInformationsIntoSessionSong() {
         SQLiteDatabase sQ;
         sQ = this.getWritableDatabase();
@@ -268,9 +282,17 @@ public class DatenbankOperations extends SQLiteOpenHelper {
 
     public Cursor getInformationFromSong(DatenbankOperations op){
         SQLiteDatabase sQ = op.getReadableDatabase();
-        
+
         String[] spalten = {DatenbankInfo.SONG_NAME, DatenbankInfo.SONG_DAUER};
         Cursor cr = sQ.query(DatenbankInfo.TABLE_SONG, spalten,null, null, null, null, null);
         return cr;
+    }
+
+    public String getInformationFromSong1(DatenbankOperations op){
+        SQLiteDatabase sQ = op.getReadableDatabase();
+
+        String[] spalten = {DatenbankInfo.SONG_NAME, DatenbankInfo.SONG_DAUER};
+        Cursor cr = sQ.query(DatenbankInfo.TABLE_SONG, spalten,null, null, null, null, null);
+        return spalten[1];
     }
 }

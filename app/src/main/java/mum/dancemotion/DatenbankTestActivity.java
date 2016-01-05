@@ -36,6 +36,7 @@ public class DatenbankTestActivity extends AppCompatActivity {
 
                 DatenbankOperations DB = new DatenbankOperations(ctx);
                 DB.putInformationIntoSong(DB, song_name, song_dauer);
+                System.out.println("test" + DB.getInformationFromSong1(DB));
                 Toast.makeText(getBaseContext(), "Song-Daten wurden in die Datenbank eingefügt!", Toast.LENGTH_LONG).show();
                 finish();
             }

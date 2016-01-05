@@ -27,6 +27,17 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
     private int count; // Number of times the sensor method is activated
 
     private int index; // index of buffers
+
+    private int systemTime; // Time since System started
+
+    private String songName; //Name of the Song
+
+    private DatenbankOperations DB;
+
+    private Context ctx = this;
+
+
+
     /**
      * Buffers for average intensities
      */
@@ -113,6 +124,14 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
 
         accelaration=(TextView) findViewById(R.id.accelaration);
 
+        DB = new DatenbankOperations(ctx);
+
+        //System.out.println(DB.getInformationFromSong(DB));
+
+
+
+        songName = "no song yet";
+
     }
 
     /**
@@ -125,6 +144,7 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
                 currentTime = System.currentTimeMillis();
                 startBtn.setImageResource(R.drawable.startbutton_active);
                 startBtnState = true;
+
             } else { // Deactivate
                 startBtn.setImageResource(R.drawable.startbutton_inactive);
                 startBtnState = false;
@@ -194,6 +214,20 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
         return 0;
     }
 
+
+
+    /**
+     *Clear the buffers for a new song.
+     */
+    public void resetRatingValue(){
+        clearSongBuffer();
+        bufferX = new float[BUFFER_SIZE];
+        bufferY = new float[BUFFER_SIZE];
+        bufferZ = new float[BUFFER_SIZE];
+        count = 0;
+        index = 0;
+    }
+
     /**
      * Reset all variables to default state and clear the buffers.
      */
@@ -206,6 +240,8 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
         index = 0;
         currentTime = 0;
     }
+
+
 
     /**
      * Calculates the average intensity of a song from the songBuffer
@@ -261,6 +297,18 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
             if (Math.abs(event.values[2]) > maxZ)
                 maxZ = Math.abs(event.values[2]);
 
+            systemTime = (int)(System.currentTimeMillis() - currentTime) / 1000;
+
+            if(systemTime>0)
+                songName="MichaelJackson 1";
+
+            if(systemTime>7)
+                songName="David";
+                //DB.putInformationsIntoSessionSong(DB, Integer.toString(getRating(calcSongAverage())));
+                //resetRatingValue();
+                /**würde jedes mal die Sensorwerte reseten, wenn
+                // die app 7 sekunden läuft, daher falscher Ansatz, sollte eigentlich nur
+                 einmal bei 7 sekunden die Sensorwerte zurücksetzen danach nicht mehr**/
 
 
             accelaration.setText("X: " + event.values[0] +
@@ -275,15 +323,17 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
                              "\nAvgY: " + avgY +
                              "\nAvgZ: " + avgZ + **/
                             "\nStart: " + (System.currentTimeMillis() - currentTime) / 1000 + " seconds" +
+
+                            "\n" + songName +
+
                             "\nCount: " + count +
                             "\nsongBufferSize(): " + songBuffer.size() +
                             "\ntest: " + test
             );
 
 
-
             System.out.println("\nStart: " + (System.currentTimeMillis() - currentTime) / 1000 + " seconds" +
-                    "\nAverage: "+ calcSongAverage());
+                    "\nAverage: " + calcSongAverage());
 
 
 
