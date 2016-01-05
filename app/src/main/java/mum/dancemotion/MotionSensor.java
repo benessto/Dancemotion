@@ -305,6 +305,7 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
             if(systemTime>7)
                 songName="David";
                 //DB.putInformationsIntoSessionSong(DB, Integer.toString(getRating(calcSongAverage())));
+                  DB.putInformationsIntoSessionSong(DB, getRating(calcSongAverage()));
                 //resetRatingValue();
                 /**würde jedes mal die Sensorwerte reseten, wenn
                 // die app 7 sekunden läuft, daher falscher Ansatz, sollte eigentlich nur

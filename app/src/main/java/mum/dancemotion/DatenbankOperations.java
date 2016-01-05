@@ -61,13 +61,13 @@ public class DatenbankOperations extends SQLiteOpenHelper {
     }
 
 
-    public void putInformationsIntoSessionSong(DatenbankOperations op, String songIntensität){
+    public void putInformationsIntoSessionSong(DatenbankOperations op, int songIntensität){
         SQLiteDatabase sQ = op.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         //SessionSong1
-        cv.put(DatenbankInfo.SES_ID,) 1);
-        cv.put(DatenbankInfo.SON_ID, 2;
+        cv.put(DatenbankInfo.SES_ID, 1);
+        cv.put(DatenbankInfo.SON_ID, 2);
         cv.put(DatenbankInfo.SONG_INTENSITÄT, songIntensität);
 
         long k = sQ.insert(DatenbankInfo.TABLE_SESSION_SONG, null, cv);
