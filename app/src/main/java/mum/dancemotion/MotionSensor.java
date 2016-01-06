@@ -299,17 +299,15 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
 
             systemTime = (int)(System.currentTimeMillis() - currentTime) / 1000;
 
-            if(systemTime>0)
+            if(systemTime>0 && systemTime<7)
                 songName="MichaelJackson 1";
 
-            if(systemTime>7)
+            else if(systemTime>=7){
                 songName="David";
                 //DB.putInformationsIntoSessionSong(DB, Integer.toString(getRating(calcSongAverage())));
-                  DB.putInformationsIntoSessionSong(DB, getRating(calcSongAverage()));
-                //resetRatingValue();
-                /**würde jedes mal die Sensorwerte reseten, wenn
-                // die app 7 sekunden läuft, daher falscher Ansatz, sollte eigentlich nur
-                 einmal bei 7 sekunden die Sensorwerte zurücksetzen danach nicht mehr**/
+            if(systemTime==7)
+                  //DB.putInformationsIntoSessionSong(DB, getRating(calcSongAverage()));
+                resetRatingValue();}
 
 
             accelaration.setText("X: " + event.values[0] +
@@ -333,8 +331,8 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
             );
 
 
-            System.out.println("\nStart: " + (System.currentTimeMillis() - currentTime) / 1000 + " seconds" +
-                    "\nAverage: " + calcSongAverage());
+            /**System.out.println("\nStart: " + (System.currentTimeMillis() - currentTime) / 1000 + " seconds" +
+                    "\nAverage: " + calcSongAverage());**/
 
 
 
