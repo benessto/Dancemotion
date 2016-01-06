@@ -17,6 +17,17 @@ public class StartActivity extends AppCompatActivity {
         Start = (Button) findViewById(R.id.StartButton);
 
         Statistik = (Button) findViewById(R.id.StatistikButton);
+        Statistik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                status = 5;
+                //Bundle bundle = getIntent().getExtras();
+                //bundle.putInt("DBTest",status);
+                Intent i = new Intent(StartActivity.this, StatistikActivity.class);
+                //i.putExtras(bundle);
+                StartActivity.this.startActivity(i);
+            }
+        });
 
         Hitlist = (Button) findViewById(R.id.HitlistButton);
 
