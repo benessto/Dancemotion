@@ -38,6 +38,8 @@ public class DatenbankOperations extends SQLiteOpenHelper {
             " )";
 
     public String CREATE_TABLE_SESSION_SONG = "CREATE TABLE "+ DatenbankInfo.TABLE_SESSION_SONG + " (" +
+            DatenbankInfo.SON_ID + INT_TYPE + COMMA_SEP +
+            DatenbankInfo.SES_ID + INT_TYPE + COMMA_SEP +
             " FOREIGN KEY ("+DatenbankInfo.SON_ID +") REFERENCES "+ DatenbankInfo.TABLE_SONG+" ("+ DatenbankInfo.SONG_ID +")"+ COMMA_SEP +
             " FOREIGN KEY ("+DatenbankInfo.SES_ID +") REFERENCES "+ DatenbankInfo.TABLE_SESSION+" ("+ DatenbankInfo.SESSION_ID +")"+ COMMA_SEP +
             DatenbankInfo.SONG_INTENSITÄT + INT_TYPE +
@@ -285,6 +287,14 @@ public class DatenbankOperations extends SQLiteOpenHelper {
 
         String[] spalten = {DatenbankInfo.SONG_NAME, DatenbankInfo.SONG_DAUER};
         Cursor cr = sQ.query(DatenbankInfo.TABLE_SONG, spalten,null, null, null, null, null);
+        return cr;
+    }
+
+    public Cursor getInformationFromSessionSong(DatenbankOperations op){
+        SQLiteDatabase sQ = op.getReadableDatabase();
+
+        String[] spalten = {DatenbankInfo.SES_ID, DatenbankInfo.SON_ID};
+        Cursor cr = sQ.query(DatenbankInfo.TABLE_SESSION_SONG, spalten,null, null, null, null, null);
         return cr;
     }
 
