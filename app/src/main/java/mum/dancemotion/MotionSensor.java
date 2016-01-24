@@ -13,7 +13,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 public class MotionSensor extends AppCompatActivity implements SensorEventListener {
     private final static int BUFFER_SIZE = 125;
@@ -35,6 +37,25 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
     private DatenbankOperations DB;
 
     private Context ctx = this;
+
+    private long delayForTimer = 30000;
+    private int[] ratingArray = new int[5];
+    private int ratingArrayPointer = 0;
+    private Timer timer = new Timer();
+    private boolean timerStarted = false;
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            if (ratingArrayPointer < 5) {
+                ratingArray[ratingArrayPointer] = getRating(calcSongAverage());
+                resetRatingValue();
+            } else {
+                timer.cancel();
+                timer.purge();
+            }
+            ratingArrayPointer++;
+        }
+    };
 
 
 
@@ -121,8 +142,9 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
         startBtn = (ImageButton)findViewById(R.id.startButton_Inactive);
         startBtn.setOnClickListener(startButtonHandler);
 
-
         accelaration=(TextView) findViewById(R.id.accelaration);
+
+
 
         DB = new DatenbankOperations(ctx);
 
@@ -132,6 +154,15 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
 
         songName = "no song yet";
 
+    }
+
+    /**
+     * Starts the timer to save ratings into an array after a specified delay
+     */
+    protected void startTimer() {
+        if (!timerStarted)
+            timer.scheduleAtFixedRate(timerTask, delayForTimer, delayForTimer);
+        timerStarted = true;
     }
 
     /**
@@ -261,6 +292,10 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
      * @param event
      */
     public void onSensorChanged(SensorEvent event) {
+        if (!timerStarted) {
+            startTimer();
+        }
+
         if (startBtnState) {
             int test = 0;
 
@@ -297,7 +332,7 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
             if (Math.abs(event.values[2]) > maxZ)
                 maxZ = Math.abs(event.values[2]);
 
-            systemTime = (int)(System.currentTimeMillis() - currentTime) / 1000;
+            /*systemTime = (int)(System.currentTimeMillis() - currentTime) / 1000;
 
             if(systemTime>0 && systemTime<7)
                 songName="MichaelJackson 1";
@@ -307,28 +342,28 @@ public class MotionSensor extends AppCompatActivity implements SensorEventListen
                 //DB.putInformationsIntoSessionSong(DB, Integer.toString(getRating(calcSongAverage())));
             if(systemTime==7)
                   //DB.putInformationsIntoSessionSong(DB, getRating(calcSongAverage()));
-                resetRatingValue();}
+                resetRatingValue();}*/
 
 
-            accelaration.setText("X: " + event.values[0] +
+            /*accelaration.setText("X: " + event.values[0] +
                             "\nY: " + Math.abs(event.values[1]) +
                             "\nZ: " + Math.abs(event.values[2]) +
                             "\nAverage: " + calcSongAverage() +
                             "\nRating: " + getRating(calcSongAverage()) +
-                            /**"\nMaxX: " + maxX +
-                             "\nMaxY: " + maxY +
-                             "\nMaxZ: " + maxZ +
-                             "\nAvgX: " + avgX +
-                             "\nAvgY: " + avgY +
-                             "\nAvgZ: " + avgZ + **/
                             "\nStart: " + (System.currentTimeMillis() - currentTime) / 1000 + " seconds" +
-
-                            "\n" + songName +
-
                             "\nCount: " + count +
-                            "\nsongBufferSize(): " + songBuffer.size() +
-                            "\ntest: " + test
-            );
+                            "\nsongBufferSize(): " + songBuffer.size()
+            );*/
+
+            String ratings = "1. " + ratingArray[0] + "\n";
+            for (int i = 1; i < 5; i++) {
+                ratings = ratings + (i+1)+". " + ratingArray[i] + "\n";
+            }
+
+            accelaration.setText(ratings +
+                    "\nRating: " + getRating(calcSongAverage()));
+
+
 
 
             /**System.out.println("\nStart: " + (System.currentTimeMillis() - currentTime) / 1000 + " seconds" +
